@@ -15,6 +15,12 @@ export default new Vuex.Store({
       'food',
       'community'
     ],
+    todos: [
+      { id: 1, title: '...', done: true },
+      { id: 2, title: '...', done: false },
+      { id: 3, title: '...', done: true },
+      { id: 4, title: '...', done: false }
+    ],
     events: [
       { id: 1, title: '...', organizer: '...' },
       { id: 2, title: '...', organizer: '...' },
@@ -25,6 +31,15 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   getters: {
+    catLength: state => {
+      return state.categories.length
+    },
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done)
+    },
+    activeTodosCount: (state, getters) => {
+      return state.todos.length - getters.doneTodos.length
+    },
     getEventById: state => id => {
       return state.events.find(event => event.id === id)
     }
